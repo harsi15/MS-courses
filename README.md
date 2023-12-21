@@ -5,7 +5,7 @@
 
 - 💬 Ask me about **Java, Jenkins, Containerization and Apache Camel**
 
-- 📫 How to reach me **dhillonharsimran192@gmail.com**
+- 📫 How to reach me **dhillonh536@gmail.com**
 
 - ⚡ Fun fact **I like solving bugs and errors**
 
