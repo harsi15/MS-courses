@@ -1,0 +1,418 @@
+Fall 2023 Programming Languages (CS-571-03)
+HomeWork 5
+
+
+Harsimran Singh Avtar Singh Dhillon 
+Shailee Manojkumar Patel
+
+
+—-------------------------------------------------------------------------------------------------
+1. \x.x \y.y
+(\x. (x (\y. y)))
+
+
+Final reduced value is : (\x. (x (\y. y)))
+(This expression is not reducable)
+
+
+—-------------------------------------------------------------------------------------------------
+2. (\x.\y.x y) y v
+(((\x. (\y. (x y))) y) v)
+
+
+Beta reduction of  'y' into '(\x. (\y. (x y)))'
+((\y. (y y)) v)
+
+
+Beta reduction of  'v' into '(\y. (y y))'
+(y v)
+
+
+Final reduced value is : (y v)
+(This expression equates to (y v))
+
+
+—-------------------------------------------------------------------------------------------------
+3. (\n.\f.\x.f (n f x)) \f.\x.(f x)
+((\n. (\f. (\x. (f ((n f) x))))) (\f. (\x. (f x))))
+
+
+Alpha reduction of  '(\f. (\x. (f x)))' with name 'X0'
+Alpha reduction of  '(\x. (X0 x))' with name 'X1'
+((\n. (\f. (\x. (f ((n f) x))))) (\X0. (\X1. (X0 X1))))
+
+
+Beta reduction of  '(\X0. (\X1. (X0 X1)))' into '(\n. (\f. (\x. (f ((n f) x)))))'
+(\f. (\x. (f (((\X0. (\X1. (X0 X1))) f) x))))
+
+
+Beta reduction of  'f' into '(\X0. (\X1. (X0 X1)))'
+(\f. (\x. (f ((\X1. (f X1)) x))))
+
+
+Beta reduction of  'x' into '(\X1. (f X1))'
+(\f. (\x. (f (f x))))
+
+
+Final reduced value is : (\f. (\x. (f (f x))))
+(This expression equates to 2)
+
+
+—-------------------------------------------------------------------------------------------------
+4. (\n.\f.\x.(f ((n f) x)))  \f.\x.(f (f x))
+((\n. (\f. (\x. (f ((n f) x))))) (\f. (\x. (f (f x)))))
+
+
+Alpha reduction of  '(\f. (\x. (f (f x))))' with name 'X0'
+Alpha reduction of  '(\x. (X0 (X0 x)))' with name 'X1'
+((\n. (\f. (\x. (f ((n f) x))))) (\X0. (\X1. (X0 (X0 X1)))))
+
+
+Beta reduction of  '(\X0. (\X1. (X0 (X0 X1))))' into '(\n. (\f. (\x. (f ((n f) x)))))'
+(\f. (\x. (f (((\X0. (\X1. (X0 (X0 X1)))) f) x))))
+
+
+Beta reduction of  'f' into '(\X0. (\X1. (X0 (X0 X1))))'
+(\f. (\x. (f ((\X1. (f (f X1))) x))))
+
+
+Beta reduction of  'x' into '(\X1. (f (f X1)))'
+(\f. (\x. (f (f (f x)))))
+
+
+Final reduced value is : (\f. (\x. (f (f (f x)))))
+(This expression equates to 3)
+
+
+—-------------------------------------------------------------------------------------------------
+5. (\m.\n.\f.\x.m f (n f x)) (\f.\x.(f x)) \f.\x.x
+(((\m. (\n. (\f. (\x. ((m f) ((n f) x)))))) (\f. (\x. (f x)))) (\f. (\x. x)))
+
+
+Alpha reduction of  '(\f. (\x. (f x)))' with name 'X0'
+Alpha reduction of  '(\x. (X0 x))' with name 'X1'
+(((\m. (\n. (\f. (\x. ((m f) ((n f) x)))))) (\X0. (\X1. (X0 X1)))) (\f. (\x. x)))
+
+
+Beta reduction of '(\X0. (\X1. (X0 X1)))' into '(\m. (\n. (\f. (\x. ((m f) ((n f) x))))))'
+ ((\n. (\f. (\x. (((\X0. (\X1. (X0 X1))) f) ((n f) x))))) (\f. (\x. x)))
+
+
+Beta reduction of 'f' into '(\X0. (\X1. (X0 X1)))'
+ ((\n. (\f. (\x. ((\X1. (f X1)) ((n f) x))))) (\f. (\x. x)))
+
+
+Alpha reduction of '(\f. (\x. ((\X1. (f X1)) ((n f) x))))' with name 'X2'
+((\n. (\X2. (\x. ((\X1. (X2 X1)) ((n X2) x))))) (\f. (\x. x)))
+
+
+Beta reduction of '((n X2) x)' into '(\X1. (X2 X1))'
+ ((\n. (\X2. (\x. (X2 ((n X2) x))))) (\f. (\x. x)))
+
+
+Alpha reduction of '(\x. x)' with name 'X3'
+((\n. (\X2. (\x. (X2 ((n X2) x))))) (\f. (\X3. X3)))
+
+
+Beta reduction of '(\f. (\X3. X3))' into '(\n. (\X2. (\x. (X2 ((n X2) x)))))'
+ (\X2. (\x. (X2 (((\f. (\X3. X3)) X2) x))))
+
+
+Beta reduction of 'X2' into '(\f. (\X3. X3))'
+ (\X2. (\x. (X2 ((\X3. X3) x))))
+
+
+Beta reduction of 'x' into '(\X3. X3)'
+ (\X2. (\x. (X2 x)))
+
+
+Final reduced value is : (\X2. (\x. (X2 x)))
+(This expression equates to 1)
+
+
+—-------------------------------------------------------------------------------------------------
+6. (\m.\n.\f.\x.m f (n f x)) (\f.\x.(f (f x))) \f.\x.(f (f (f x)))
+(((\m. (\n. (\f. (\x. ((m f) ((n f) x)))))) (\f. (\x. (f (f x))))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\f. (\x. (f (f x))))' with name 'X0'
+Alpha reduction of '(\x. (X0 (X0 x)))' with name 'X1'
+ (((\m. (\n. (\f. (\x. ((m f) ((n f) x)))))) (\X0. (\X1. (X0 (X0 X1))))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of '(\X0. (\X1. (X0 (X0 X1))))' into '(\m. (\n. (\f. (\x. ((m f) ((n f) x))))))'
+ ((\n. (\f. (\x. (((\X0. (\X1. (X0 (X0 X1)))) f) ((n f) x))))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of 'f' into '(\X0. (\X1. (X0 (X0 X1))))'
+ ((\n. (\f. (\x. ((\X1. (f (f X1))) ((n f) x))))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\f. (\x. ((\X1. (f (f X1))) ((n f) x))))' with name 'X2'
+ ((\n. (\X2. (\x. ((\X1. (X2 (X2 X1))) ((n X2) x))))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of '((n X2) x)' into '(\X1. (X2 (X2 X1)))'
+ ((\n. (\X2. (\x. (X2 (X2 ((n X2) x)))))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\x. (f (f (f x))))' with name 'X3'
+ ((\n. (\X2. (\x. (X2 (X2 ((n X2) x)))))) (\f. (\X3. (f (f (f X3))))))
+
+
+Beta reduction of '(\f. (\X3. (f (f (f X3)))))' into '(\n. (\X2. (\x. (X2 (X2 ((n X2) x))))))'
+ (\X2. (\x. (X2 (X2 (((\f. (\X3. (f (f (f X3))))) X2) x)))))
+
+
+Beta reduction of 'X2' into '(\f. (\X3. (f (f (f X3)))))'
+ (\X2. (\x. (X2 (X2 ((\X3. (X2 (X2 (X2 X3)))) x)))))
+
+
+Beta reduction of 'x' into '(\X3. (X2 (X2 (X2 X3))))'
+ (\X2. (\x. (X2 (X2 (X2 (X2 (X2 x)))))))
+
+
+Final reduced value is : (\X2. (\x. (X2 (X2 (X2 (X2 (X2 x)))))))
+(This expression equates to 5)
+
+
+—-------------------------------------------------------------------------------------------------
+7. (\m.\n.\f.(m n f)) (\f.\x.(f (f x))) \f.\x.(f (f (f x)))
+(((\m. (\n. (\f. ((m n) f)))) (\f. (\x. (f (f x))))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\f. (\x. (f (f x))))' with name 'X0'
+(((\m. (\n. (\f. ((m n) f)))) (\X0. (\x. (X0 (X0 x))))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of '(\X0. (\x. (X0 (X0 x))))' into '(\m. (\n. (\f. ((m n) f))))'
+((\n. (\f. (((\X0. (\x. (X0 (X0 x)))) n) f))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of 'n' into '(\X0. (\x. (X0 (X0 x))))'
+((\n. (\f. ((\x. (n (n x))) f))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of 'f' into '(\x. (n (n x)))'
+((\n. (\f. (n (n f)))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\f. (\x. (f (f (f x)))))' with name 'X1'
+((\n. (\f. (n (n f)))) (\X1. (\x. (X1 (X1 (X1 x))))))
+
+
+Beta reduction of '(\X1. (\x. (X1 (X1 (X1 x)))))' into '(\n. (\f. (n (n f))))'
+(\f. ((\X1. (\x. (X1 (X1 (X1 x))))) ((\X1. (\x. (X1 (X1 (X1 x))))) f)))
+
+
+Beta reduction of 'f' into '(\X1. (\x. (X1 (X1 (X1 x)))))'
+(\f. ((\X1. (\x. (X1 (X1 (X1 x))))) (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\x. (f (f (f x))))' with name 'X2'
+(\f. ((\X1. (\x. (X1 (X1 (X1 x))))) (\X2. (f (f (f X2))))))
+
+
+Beta reduction of '(\X2. (f (f (f X2))))' into '(\X1. (\x. (X1 (X1 (X1 x)))))'
+(\f. (\x. ((\X2. (f (f (f X2)))) ((\X2. (f (f (f X2)))) ((\X2. (f (f (f X2)))) x)))))
+
+
+Beta reduction of 'x' into '(\X2. (f (f (f X2))))'
+(\f. (\x. ((\X2. (f (f (f X2)))) ((\X2. (f (f (f X2)))) (f (f (f x)))))))
+
+
+Alpha reduction of '(\f. (\x. ((\X2. (f (f (f X2)))) ((\X2. (f (f (f X2)))) (f (f (f x)))))))' with name 'X3'
+(\X3. (\x. ((\X2. (X3 (X3 (X3 X2)))) ((\X2. (X3 (X3 (X3 X2)))) (X3 (X3 (X3 x)))))))
+
+
+Beta reduction of '(X3 (X3 (X3 x)))' into '(\X2. (X3 (X3 (X3 X2))))'
+(\X3. (\x. ((\X2. (X3 (X3 (X3 X2)))) (X3 (X3 (X3 (X3 (X3 (X3 x)))))))))
+
+
+Alpha reduction of '(\X3. (\x. ((\X2. (X3 (X3 (X3 X2)))) (X3 (X3 (X3 (X3 (X3 (X3 x)))))))))' with name 'X4'
+(\X4. (\x. ((\X2. (X4 (X4 (X4 X2)))) (X4 (X4 (X4 (X4 (X4 (X4 x)))))))))
+
+
+Beta reduction of '(X4 (X4 (X4 (X4 (X4 (X4 x))))))' into '(\X2. (X4 (X4 (X4 X2))))'
+(\X4. (\x. (X4 (X4 (X4 (X4 (X4 (X4 (X4 (X4 (X4 x)))))))))))
+
+
+Final reduced value is : (\X4. (\x. (X4 (X4 (X4 (X4 (X4 (X4 (X4 (X4 (X4 x)))))))))))
+(This expression equates to 9)
+
+
+—-------------------------------------------------------------------------------------------------
+8. (\b.\e.(e b)) (\f.\x.(f (f x))) \f.\x.(f (f (f x)))
+(((\b. (\e. (e b))) (\f. (\x. (f (f x))))) (\f. (\x. (f (f (f x))))))
+
+
+Beta reduction of '(\f. (\x. (f (f x))))' into '(\b. (\e. (e b)))'
+((\e. (e (\f. (\x. (f (f x)))))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\f. (\x. (f (f (f x)))))' with name 'X0'
+Alpha reduction of '(\x. (X0 (X0 (X0 x))))' with name 'X1'
+((\e. (e (\f. (\x. (f (f x)))))) (\X0. (\X1. (X0 (X0 (X0 X1))))))
+
+
+Beta reduction of '(\X0. (\X1. (X0 (X0 (X0 X1)))))' into '(\e. (e (\f. (\x. (f (f x))))))'
+((\X0. (\X1. (X0 (X0 (X0 X1))))) (\f. (\x. (f (f x)))))
+
+
+Beta reduction of '(\f. (\x. (f (f x))))' into '(\X0. (\X1. (X0 (X0 (X0 X1)))))'
+(\X1. ((\f. (\x. (f (f x)))) ((\f. (\x. (f (f x)))) ((\f. (\x. (f (f x)))) X1))))
+
+
+Beta reduction of 'X1' into '(\f. (\x. (f (f x))))'
+(\X1. ((\f. (\x. (f (f x)))) ((\f. (\x. (f (f x)))) (\x. (X1 (X1 x))))))
+
+
+Alpha reduction of '(\x. (X1 (X1 x)))' with name 'X2'
+(\X1. ((\f. (\x. (f (f x)))) ((\f. (\x. (f (f x)))) (\X2. (X1 (X1 X2))))))
+
+
+Beta reduction of '(\X2. (X1 (X1 X2)))' into '(\f. (\x. (f (f x))))'
+(\X1. ((\f. (\x. (f (f x)))) (\x. ((\X2. (X1 (X1 X2))) ((\X2. (X1 (X1 X2))) x)))))
+
+
+Beta reduction of 'x' into '(\X2. (X1 (X1 X2)))'
+(\X1. ((\f. (\x. (f (f x)))) (\x. ((\X2. (X1 (X1 X2))) (X1 (X1 x))))))
+
+
+Alpha reduction of '(\X1. ((\f. (\x. (f (f x)))) (\x. ((\X2. (X1 (X1 X2))) (X1 (X1 x))))))' with name 'X3'
+(\X3. ((\f. (\x. (f (f x)))) (\x. ((\X2. (X3 (X3 X2))) (X3 (X3 x))))))
+
+
+Beta reduction of '(X3 (X3 x))' into '(\X2. (X3 (X3 X2)))'
+(\X3. ((\f. (\x. (f (f x)))) (\x. (X3 (X3 (X3 (X3 x)))))))
+
+
+Alpha reduction of '(\x. (X3 (X3 (X3 (X3 x)))))' with name 'X4'
+(\X3. ((\f. (\x. (f (f x)))) (\X4. (X3 (X3 (X3 (X3 X4)))))))
+
+
+Beta reduction of '(\X4. (X3 (X3 (X3 (X3 X4)))))' into '(\f. (\x. (f (f x))))'
+(\X3. (\x. ((\X4. (X3 (X3 (X3 (X3 X4))))) ((\X4. (X3 (X3 (X3 (X3 X4))))) x))))
+
+
+Beta reduction of 'x' into '(\X4. (X3 (X3 (X3 (X3 X4)))))'
+(\X3. (\x. ((\X4. (X3 (X3 (X3 (X3 X4))))) (X3 (X3 (X3 (X3 x)))))))
+
+
+Alpha reduction of '(\X3. (\x. ((\X4. (X3 (X3 (X3 (X3 X4))))) (X3 (X3 (X3 (X3 x)))))))' with name 'X5'
+(\X5. (\x. ((\X4. (X5 (X5 (X5 (X5 X4))))) (X5 (X5 (X5 (X5 x)))))))
+
+
+Beta reduction of '(X5 (X5 (X5 (X5 x))))' into '(\X4. (X5 (X5 (X5 (X5 X4)))))'
+(\X5. (\x. (X5 (X5 (X5 (X5 (X5 (X5 (X5 (X5 x))))))))))
+
+
+Final reduced value is : (\X5. (\x. (X5 (X5 (X5 (X5 (X5 (X5 (X5 (X5 x))))))))))
+(This expression equates to 8)
+
+
+—-------------------------------------------------------------------------------------------------
+9. (\n.\f.\x.n (\g.\h.h (g f)) (\u.x) (\u.u)) \f.\x.(f (f (f x)))
+((\n. (\f. (\x. (((n (\g. (\h. (h (g f))))) (\u. x)) (\u. u))))) (\f. (\x. (f (f (f x))))))
+
+
+Alpha reduction of '(\f. (\x. (f (f (f x)))))' with name 'X0'
+Alpha reduction of '(\x. (X0 (X0 (X0 x))))' with name 'X1'
+ ((\n. (\f. (\x. (((n (\g. (\h. (h (g f))))) (\u. x)) (\u. u))))) (\X0. (\X1. (X0 (X0 (X0 X1))))))
+
+
+Beta reduction of '(\X0. (\X1. (X0 (X0 (X0 X1)))))' into '(\n. (\f. (\x. (((n (\g. (\h. (h (g f))))) (\u. x)) (\u. u)))))'
+ (\f. (\x. ((((\X0. (\X1. (X0 (X0 (X0 X1))))) (\g. (\h. (h (g f))))) (\u. x)) (\u. u))))
+
+
+Beta reduction of '(\g. (\h. (h (g f))))' into '(\X0. (\X1. (X0 (X0 (X0 X1)))))'
+(\f. (\x. (((\X1. ((\g. (\h. (h (g f)))) ((\g. (\h. (h (g f)))) ((\g. (\h. (h (g f)))) X1)))) (\u. x)) (\u. u))))
+
+
+Beta reduction of 'X1' into '(\g. (\h. (h (g f))))'
+ (\f. (\x. (((\X1. ((\g. (\h. (h (g f)))) ((\g. (\h. (h (g f)))) (\h. (h (X1 f)))))) (\u. x)) (\u. u))))
+
+
+Alpha reduction of '(\h. (h (X1 f)))' with name 'X2'
+Alpha reduction of '(\f. (\x. (((\X1. ((\g. (\h. (h (g f)))) ((\g. (\h. (h (g f)))) (\X2. (X2 (X1 f)))))) (\u. x)) (\u. u))))' with name 'X3'
+ (\X3. (\x. (((\X1. ((\g. (\h. (h (g X3)))) ((\g. (\h. (h (g X3)))) (\X2. (X2 (X1 X3)))))) (\u. x)) (\u. u))))
+
+
+Beta reduction of '(\X2. (X2 (X1 X3)))' into '(\g. (\h. (h (g X3))))'
+ (\X3. (\x. (((\X1. ((\g. (\h. (h (g X3)))) (\h. (h ((\X2. (X2 (X1 X3))) X3))))) (\u. x)) (\u. u))))
+
+
+Alpha reduction of '(\X3. (\x. (((\X1. ((\g. (\h. (h (g X3)))) (\h. (h ((\X2. (X2 (X1 X3))) X3))))) (\u. x)) (\u. u))))' with name 'X4'
+ (\X4. (\x. (((\X1. ((\g. (\h. (h (g X4)))) (\h. (h ((\X2. (X2 (X1 X4))) X4))))) (\u. x)) (\u. u))))
+
+
+Beta reduction of 'X4' into '(\X2. (X2 (X1 X4)))'
+ (\X4. (\x. (((\X1. ((\g. (\h. (h (g X4)))) (\h. (h (X4 (X1 X4)))))) (\u. x)) (\u. u))))
+
+
+Alpha reduction of '(\h. (h (X4 (X1 X4))))' with name 'X5'
+Alpha reduction of '(\X4. (\x. (((\X1. ((\g. (\h. (h (g X4)))) (\X5. (X5 (X4 (X1 X4)))))) (\u. x)) (\u. u))))' with name 'X6'
+ (\X6. (\x. (((\X1. ((\g. (\h. (h (g X6)))) (\X5. (X5 (X6 (X1 X6)))))) (\u. x)) (\u. u))))
+
+
+Beta reduction of '(\X5. (X5 (X6 (X1 X6))))' into '(\g. (\h. (h (g X6))))'
+ (\X6. (\x. (((\X1. (\h. (h ((\X5. (X5 (X6 (X1 X6)))) X6)))) (\u. x)) (\u. u))))
+
+
+Alpha reduction of '(\X6. (\x. (((\X1. (\h. (h ((\X5. (X5 (X6 (X1 X6)))) X6)))) (\u. x)) (\u. u))))' with name 'X7'
+ (\X7. (\x. (((\X1. (\h. (h ((\X5. (X5 (X7 (X1 X7)))) X7)))) (\u. x)) (\u. u))))
+
+
+Beta reduction of 'X7' into '(\X5. (X5 (X7 (X1 X7))))'
+ (\X7. (\x. (((\X1. (\h. (h (X7 (X7 (X1 X7)))))) (\u. x)) (\u. u))))
+
+
+Beta reduction of '(\u. x)' into '(\X1. (\h. (h (X7 (X7 (X1 X7))))))'
+ (\X7. (\x. ((\h. (h (X7 (X7 ((\u. x) X7))))) (\u. u))))
+
+
+Beta reduction of 'X7' into '(\u. x)'
+ (\X7. (\x. ((\h. (h (X7 (X7 x)))) (\u. u))))
+
+
+Beta reduction of '(\u. u)' into '(\h. (h (X7 (X7 x))))'
+ (\X7. (\x. ((\u. u) (X7 (X7 x)))))
+
+
+Beta reduction of '(X7 (X7 x))' into '(\u. u)'
+ (\X7. (\x. (X7 (X7 x))))
+
+
+Final reduced value is : (\X7. (\x. (X7 (X7 x))))
+(This expression equates to 2)
+
+
+—-------------------------------------------------------------------------------------------------
+10. (\p.\a.\b.p a b) (\x.\y.y) (\f.\x.(f (f (f x)))) \f.\x.x
+((((\p. (\a. (\b. ((p a) b)))) (\x. (\y. y))) (\f. (\x. (f (f (f x)))))) (\f. (\x. x)))
+
+
+Beta reduction of '(\x. (\y. y))' into '(\p. (\a. (\b. ((p a) b))))'
+ (((\a. (\b. (((\x. (\y. y)) a) b))) (\f. (\x. (f (f (f x)))))) (\f. (\x. x)))
+
+
+Beta reduction of 'a' into '(\x. (\y. y))'
+ (((\a. (\b. ((\y. y) b))) (\f. (\x. (f (f (f x)))))) (\f. (\x. x)))
+
+
+Beta reduction of 'b' into '(\y. y)'
+ (((\a. (\b. b)) (\f. (\x. (f (f (f x)))))) (\f. (\x. x)))
+
+
+Beta reduction of '(\f. (\x. (f (f (f x)))))' into '(\a. (\b. b))'
+ ((\b. b) (\f. (\x. x)))
+
+
+Beta reduction of '(\f. (\x. x))' into '(\b. b)'
+ (\f. (\x. x))
+
+
+Final reduced value is : (\f. (\x. x))
+(The answer is False, Hence 3 )
+
+—-------------------------------------------------------------------------------------------------
