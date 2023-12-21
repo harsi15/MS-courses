@@ -3,7 +3,7 @@
 
 - 🌱 I’m currently learning **JavaScript and TypeScript**
 
-- 💬 Ask me about **Java, Jenkins, Containerization, Apache Camel**
+- 💬 Ask me about **Java, Jenkins, Containerization and Apache Camel**
 
 - 📫 How to reach me **dhillonharsimran192@gmail.com**
 
