@@ -1,6 +1,17 @@
 <h1 align="center">Hi 👋, I'm Harsimran Singh Dhillon</h1>
 <h3 align="center">A passionate Full Stack developer currently pursuing MS in Computer Science</h3>
 
+<h3>Ongoing Subjects</h3>
+- Operating Systems
+- Introduction to Computer Security
+- DataBase Systems
+- Game development for mobile platforms
+
+<h3>Subjects Completed</h3>
+- Design and Analysis of Algorithms
+- Principles of Programming Languages
+- Introduction to Machine Learning
+
 - 🌱 I’m currently learning **JavaScript and TypeScript**
 
 - 💬 Ask me about **Java, Jenkins, Containerization and Apache Camel**
